@@ -31,13 +31,15 @@ export class BankAccount implements Account {
     }
 
     withdraw(amount: number): void {
-        throw new Error("Not implemented");
+        this.transactions.push(new Transaction(this.clock.getCurrentDate(), -amount));
     }
 
     printStatement(): void {
+        let balance = 0;
         this.console.print(HEADER);
         this.transactions.forEach(transaction => {
-            this.console.print(`${transaction.date} || ${transaction.amount} || 1000`);
+            balance += transaction.amount;
+            this.console.print(`${transaction.date} || ${transaction.amount} || ${balance}`);
         })
     }
 }
@@ -53,5 +55,11 @@ export interface Console {
 export class SystemConsole implements Console {
     print(line: string): void {
         throw new Error("Not implemented");
+    }
+}
+
+export class SystemClock implements Clock {
+    getCurrentDate(): string {
+        const date = new Date();
     }
 }
