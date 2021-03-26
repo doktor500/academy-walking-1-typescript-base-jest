@@ -1,9 +1,9 @@
-import { BankAccount, SystemConsole, TransactionsVault } from "../main/systemConsole";
+import { BankAccount, Formatter, TransactionsVault } from "../main/bank";
 
 describe("Bank account", () => {
     describe("given a customer uses this account", () => {
         const vault = new TransactionsVault();
-        const console = new SystemConsole();
+        const console = new Formatter();
         const bankAccount = new BankAccount(vault, console);
 
         describe("when the customer asks for the bank statements", () => {
@@ -16,11 +16,11 @@ describe("Bank account", () => {
 
                 const expectedStatement =
                     "Date       || Amount || Balance\n" +
-                    "14/01/2012 || -500   || 2500\n" +
-                    "13/01/2012 || 2000   || 3000\n" +
-                    "10/01/2012 || 1000   || 1000";
+                    "14/01/2012 || -500 || 2500\n" +
+                    "13/01/2012 || 2000 || 3000\n" +
+                    "10/01/2012 || 1000 || 1000";
 
-                expect(console.getLines()).toEqual(expectedStatement);
+                expect(console.getFormattedLines()).toEqual(expectedStatement);
             });
         });
     });
